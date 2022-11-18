@@ -8,4 +8,8 @@ class WhatIsThatMelody extends Program {
 
     ////////////////////////////////    PROGRAMME PRINCIPAL    ////////////////////////////////
 
+    void test1() {
+        println(test);
+    }
+
 }
