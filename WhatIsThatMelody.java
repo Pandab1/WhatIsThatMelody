@@ -16,7 +16,6 @@ class WhatIsThatMelody extends Program {
         return reponses >= 0 && reponses < nbReponses;
     }
 
-
     ////////////////////////////////    PROGRAMME PRINCIPAL    ////////////////////////////////
 
 }
