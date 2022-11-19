@@ -10,7 +10,6 @@ class WhatIsThatMelody extends Program {
         assertFalse(isNumberCorrect(nbReponses, -1));
     }
 
-
     ////////////////////////////////        FONCTIONS          ////////////////////////////////
 
     boolean isNumberCorrect(int nbReponses, int reponses) {
