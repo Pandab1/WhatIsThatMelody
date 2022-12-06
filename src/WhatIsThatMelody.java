@@ -1,7 +1,10 @@
+import extensions.CSVFile;
+
 class WhatIsThatMelody extends Program {
 
     public String nom = "";
     public String difficulte = "";
+    
 
     ////////////////////////////////          TESTS            ////////////////////////////////
 
@@ -12,9 +15,10 @@ class WhatIsThatMelody extends Program {
     void init() {
         boolean bon = false;
         print("Quel est votre nom ? ");
-        nom = ReadString();
+        nom = readString();
         print("Quelle difficulté  voulez-vous ? A) facile, B) Moyen, C) Difficile");
-        char choix = readChar().toUpperCase();
+        char choix = readChar()
+        ;
         while (!bon) {
             if (choix == 'A'){
                 difficulte = "facile";
@@ -31,6 +35,23 @@ class WhatIsThatMelody extends Program {
         }
     }
 
+    /*Chanson choixChanson() {
+        
+    }*/
+
+    void print(CSVFile csv) {
+        for(int line = 0; line<rowCount(csv); line++) {
+            for (int column = 0; column<columnCount(csv, line); column++){
+                print(getCell(csv, line, column )+" | ");
+            }
+            println();
+        }
+    }
+
+    void algorithm() {
+        print(loadCSV("../ressources/chanson.csv",','));
+
+    }
     ////////////////////////////////    PROGRAMME PRINCIPAL    ////////////////////////////////
 
 }
