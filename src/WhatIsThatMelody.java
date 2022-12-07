@@ -20,13 +20,13 @@ class WhatIsThatMelody extends Program {
         char choix = readChar()
         ;
         while (!bon) {
-            if (choix == 'A'){
+            if (choix == 'A' || choix == 'a'){
                 difficulte = "facile";
                 bon = true;
-            } else if (choix == 'B') {
+            } else if (choix == 'B' || choix == 'b') {
                 difficulte = "moyen";
                 bon = true;
-            } else if (choix == 'C') {
+            } else if (choix == 'C' || chois == 'c') {
                 difficulte = "difficile";
                 bon = true;
             } else {
@@ -50,7 +50,7 @@ class WhatIsThatMelody extends Program {
 
     void algorithm() {
         print(loadCSV("../ressources/chanson.csv",','));
-
+        print(loadCSV("../ressources/parole.csv",','));
     }
     ////////////////////////////////    PROGRAMME PRINCIPAL    ////////////////////////////////
 
