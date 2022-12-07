@@ -2,16 +2,17 @@ import extensions.CSVFile;
 
 class WhatIsThatMelody extends Program {
 
+    ////////////////////////////        VARIABLES GLOBALES          ///////////////////////////
+
     public String nom = "";
     public String difficulte = "";
     public String type = "";
     public String titreChoisi = "";
+    public int ligneTitre = 0;
+    public String[] chanson = new String[3];
+    public String[] parole = new String[8];
+    public int score = 0;
     
-
-    ////////////////////////////////          TESTS            ////////////////////////////////
-
-    
-
     ////////////////////////////////        FONCTIONS          ////////////////////////////////
 
     void start() {
@@ -72,7 +73,26 @@ class WhatIsThatMelody extends Program {
         afficher(titres);
         int choix = readInt() - 1;
         titreChoisi = titres[choix];
+        ligneTitre = choix;
         println("Vous avez choisi '" + titreChoisi + "'");
+        //AJOUTER UNE VERIF
+    }
+
+    String init(CSVFile chansonCSV, CSVFile paroleCSV) {
+        String retour = "La comptine " + titreChoisi + " est une comptine écrite par ";
+        for (int column = 0; column<columnCount(chansonCSV, ligneTitre); column++) {
+            chanson[column] = getCell(chansonCSV, ligneTitre, column);
+        }
+        retour += chanson[1] + " en/au " + chanson[2] + "\n";
+        for (int line = 0; line<rowCount(paroleCSV); line++) {
+            if (equals(getCell(paroleCSV, line, 0), titreChoisi) && equals(getCell(paroleCSV, line, 4), type)) {
+                for (int i = 0; i<columnCount(paroleCSV, line); i++) {
+                    parole[i] = getCell(paroleCSV, line, i);
+                }
+            }
+        }
+        retour += "Choisissez la bonne proposition !\n" + parole[2] + "\n" + "1) " + parole[5] + " 2) " + parole[6] + " 3) " + parole[7] + "\n";
+        return retour;
     }
 
     void print(CSVFile csv) {
@@ -89,7 +109,10 @@ class WhatIsThatMelody extends Program {
     void algorithm() {
         start();
         String chansonsCSV = "../ressources/chanson.csv";
+        String paroleCSV = "../ressources/parole.csv";
         choixChanson(loadCSV(chansonsCSV));
+        String texte = init(loadCSV(chansonsCSV), loadCSV(paroleCSV));
+        //print(presentateur);
+        print(texte);
     }
-
 }
