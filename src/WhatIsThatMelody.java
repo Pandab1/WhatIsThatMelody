@@ -9,7 +9,7 @@ class WhatIsThatMelody extends Program {
     public String type = "";
     public int ligneTitre = 0;
     public Chanson chanson = new Chanson();
-    public Parole parole = new Parole();
+    public Paroles paroles = new Paroles();
     public int score = 0;
     
     ////////////////////////////////        FONCTIONS          ////////////////////////////////
@@ -72,7 +72,7 @@ class WhatIsThatMelody extends Program {
         afficher(titres);
         int choix = readInt() - 1;
         ligneTitre = choix;
-        chanson.titre = getCell(chansonCSV, ligneTitre, 0);
+        chanson.titre = getCell(csv, ligneTitre, 0);
         println("Vous avez choisi '" + chanson.titre + "'");
         //AJOUTER UNE VERIF
     }
@@ -81,17 +81,22 @@ class WhatIsThatMelody extends Program {
         String retour = "La comptine " + chanson.titre + " est une comptine écrite par ";
         chanson.auteur = getCell(chansonCSV, ligneTitre, 1);
         chanson.dateSortie = getCell(chansonCSV, ligneTitre, 2);
-        retour += chanson[1] + " en/au " + chanson[2] + "\n";
+        retour += chanson.auteur + " en/au " + chanson.dateSortie + "\n";
+        paroles.preced = "";
+        paroles.reponse = "";
+        paroles.type = "";
+        paroles.propositions = new String[3];
         for (int line = 0; line<rowCount(paroleCSV); line++) {
             if (equals(getCell(paroleCSV, line, 0), chanson.titre) && equals(getCell(paroleCSV, line, 4), type)) {
-                parole.nbMots = getCell(paroleCSV, line, 1);
-                parole.preced = getCell(paroleCSV, line, 2);
-                parole.reponse = getCell(paroleCSV, line, 3);
-                parole.type = getCell(paroleCSV, line, 4);
-                parole.propositions = new String[] {getCell(paroleCSV, line, 5), getCell(paroleCSV, line, 6), getCell(paroleCSV, line, 7)};
+                paroles.preced = getCell(paroleCSV, line, 1);
+                paroles.reponse = getCell(paroleCSV, line, 2);
+                paroles.type = getCell(paroleCSV, line, 3);
+                paroles.propositions[0] = getCell(paroleCSV, line, 4);
+                paroles.propositions[1] = getCell(paroleCSV, line, 5);
+                paroles.propositions[2] = getCell(paroleCSV, line, 6);
             }
         }
-        retour += "Choisissez la bonne proposition !\n" + parole.preced + "\n" + "1) " + parole.propositions[0] + " 2) " + parole.propositions[1] + " 3) " + parole.propositions[2] + "\n";
+        retour += "Choisissez la bonne proposition !\n" + paroles.preced + "\n" + "1) " + paroles.propositions[0] + " 2) " + paroles.propositions[1] + " 3) " + paroles.propositions[2] + "\n";
         return retour;
     }
 
