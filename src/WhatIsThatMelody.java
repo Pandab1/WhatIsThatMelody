@@ -64,6 +64,7 @@ class WhatIsThatMelody extends Program {
     }
 
     void choixChanson(CSVFile csv) {
+        boolean bon = false;
         String[] titres = new String[rowCount(csv)];
         for (int line = 0; line<rowCount(csv); line++) {
             titres[line] = getCell(csv, line, 0);
@@ -71,10 +72,19 @@ class WhatIsThatMelody extends Program {
         println("Quelles comptines voulez-vous ?");
         afficher(titres);
         int choix = readInt() - 1;
+        while (!bon) {
+            if (choix >= 0 && choix < length(titres)) {
+                bon = true;
+            } else {
+                print("Veuillez prendre un chiffre disponible\n");
+                choix = readInt() - 1;
+            }
+        }
         ligneTitre = choix;
         chanson.titre = getCell(csv, ligneTitre, 0);
         println("Vous avez choisi '" + chanson.titre + "'");
         //AJOUTER UNE VERIF
+
     }
 
     String init(CSVFile chansonCSV, CSVFile paroleCSV) {
@@ -87,7 +97,7 @@ class WhatIsThatMelody extends Program {
         paroles.type = "";
         paroles.propositions = new String[3];
         for (int line = 0; line<rowCount(paroleCSV); line++) {
-            if (equals(getCell(paroleCSV, line, 0), chanson.titre) && equals(getCell(paroleCSV, line, 4), type)) {
+            if (equals(getCell(paroleCSV, line, 0), chanson.titre) && equals(getCell(paroleCSV, line, 3), type)) {
                 paroles.preced = getCell(paroleCSV, line, 1);
                 paroles.reponse = getCell(paroleCSV, line, 2);
                 paroles.type = getCell(paroleCSV, line, 3);
