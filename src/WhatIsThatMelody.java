@@ -76,15 +76,13 @@ class WhatIsThatMelody extends Program {
             if (choix >= 0 && choix < length(titres)) {
                 bon = true;
             } else {
-                print("Veuillez prendre un chiffre disponible\n");
+                print("Veuillez prendre un chiffre disponible !\n>>");
                 choix = readInt() - 1;
             }
         }
         ligneTitre = choix;
         chanson.titre = getCell(csv, ligneTitre, 0);
         println("Vous avez choisi '" + chanson.titre + "'");
-        //AJOUTER UNE VERIF
-
     }
 
     String init(CSVFile chansonCSV, CSVFile paroleCSV) {
