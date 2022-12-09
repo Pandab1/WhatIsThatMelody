@@ -87,7 +87,7 @@ class WhatIsThatMelody extends Program {
         paroles.type = "";
         paroles.propositions = new String[3];
         for (int line = 0; line<rowCount(paroleCSV); line++) {
-            if (equals(getCell(paroleCSV, line, 0), chanson.titre) && equals(getCell(paroleCSV, line, 4), type)) {
+            if (equals(getCell(paroleCSV, line, 0), chanson.titre) && equals(getCell(paroleCSV, line, 3), type)) {
                 paroles.preced = getCell(paroleCSV, line, 1);
                 paroles.reponse = getCell(paroleCSV, line, 2);
                 paroles.type = getCell(paroleCSV, line, 3);
