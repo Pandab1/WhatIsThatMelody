@@ -1,5 +1,6 @@
 class Chanson {
-    String author;
-    Date dateSortie;
+    String titre;
+    String auteur;
+    String dateSortie;
     Paroles paroles;
 }

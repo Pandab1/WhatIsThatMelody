@@ -1,5 +1,7 @@
 class Paroles {
     int nbMots;
-    String reponses;
-    Choix choix;
+    String preced;
+    String reponse;
+    String type;
+    String[] propositions;
 }
