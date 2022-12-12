@@ -1,0 +1,5 @@
+*.class
+src/*.class
+ressources/*.class
+lib/*.class
+classes/*.class
