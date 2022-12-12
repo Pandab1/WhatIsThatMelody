@@ -89,7 +89,7 @@ class WhatIsThatMelody extends Program {
         String retour = "La comptine " + chanson.titre + " est une comptine écrite par ";
         chanson.auteur = getCell(chansonCSV, ligneTitre, 1);
         chanson.dateSortie = getCell(chansonCSV, ligneTitre, 2);
-        retour += chanson.auteur + " en/au " + chanson.dateSortie + "\n";
+        retour += chanson.auteur + " en/au " + chanson.dateSortie + "\n\n";
         paroles.preced = "";
         paroles.reponse = "";
         paroles.type = "";
@@ -104,7 +104,7 @@ class WhatIsThatMelody extends Program {
                 paroles.propositions[2] = getCell(paroleCSV, line, 6);
             }
         }
-        retour += "Choisissez la bonne proposition !\n" + paroles.preced + "\n" + "1) " + paroles.propositions[0] + " 2) " + paroles.propositions[1] + " 3) " + paroles.propositions[2] + "\n";
+        retour += "Choisissez la bonne proposition !\n\n" + paroles.preced + "\n" + "1) " + paroles.propositions[0] + " 2) " + paroles.propositions[1] + " 3) " + paroles.propositions[2] + "\n";
         return retour;
     }
 
@@ -138,10 +138,12 @@ class WhatIsThatMelody extends Program {
         String chansonsCSV = "../ressources/chanson.csv";
         String paroleCSV = "../ressources/parole.csv";
         choixChanson(loadCSV(chansonsCSV));
+        println();
         String texte = init(loadCSV(chansonsCSV), loadCSV(paroleCSV));
         //print(presentateur);
         print(texte);
         reponse();
+        println();
         println("Ton score est de " + score);
     }
 }
