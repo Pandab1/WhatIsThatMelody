@@ -137,10 +137,11 @@ class WhatIsThatMelody extends Program {
         start();
         String chansonsCSV = "../ressources/chanson.csv";
         String paroleCSV = "../ressources/parole.csv";
+        String presentateurCSV = "../ressources/Presentateur.csv";
         choixChanson(loadCSV(chansonsCSV));
         println();
         String texte = init(loadCSV(chansonsCSV), loadCSV(paroleCSV));
-        //print(presentateur);
+        print(loadCSV(presentateurCSV));
         print(texte);
         reponse();
         println();
