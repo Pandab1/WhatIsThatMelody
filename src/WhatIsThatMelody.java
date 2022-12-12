@@ -108,6 +108,20 @@ class WhatIsThatMelody extends Program {
         return retour;
     }
 
+    void reponse() {
+        print(">> ");
+        int choix = readInt();
+        if (choix > 3 || choix < 1) {
+            println("Choisi une réponse valide !");
+            reponse();
+        } else if ((choix <= 3 || choix >= 1) && !equals(paroles.propositions[choix - 1], paroles.reponse)) {
+            println("Mauvaise réponse !");
+        } else {
+            println("Bonne réponse ! Tu gagnes 1 points !"); //modif nb point en fonction de la difficulté
+            score += 1; //pour l'instant +1 mais tkt on arrive
+        }
+    }
+
     void print(CSVFile csv) {
         for(int line = 0; line<rowCount(csv); line++) {
             for (int column = 0; column<columnCount(csv, line); column++){
@@ -127,5 +141,7 @@ class WhatIsThatMelody extends Program {
         String texte = init(loadCSV(chansonsCSV), loadCSV(paroleCSV));
         //print(presentateur);
         print(texte);
+        reponse();
+        println("Ton score est de " + score);
     }
 }
