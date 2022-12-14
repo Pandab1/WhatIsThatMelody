@@ -135,16 +135,26 @@ class WhatIsThatMelody extends Program {
 
     void algorithm() {
         start();
+        boolean fin = false;
+        char fini = 'a';
         String chansonsCSV = "../ressources/chanson.csv";
         String paroleCSV = "../ressources/parole.csv";
         String presentateurCSV = "../ressources/Presentateur.csv";
-        choixChanson(loadCSV(chansonsCSV));
-        println();
-        String texte = init(loadCSV(chansonsCSV), loadCSV(paroleCSV));
-        print(loadCSV(presentateurCSV));
-        print(texte);
-        reponse();
-        println();
-        println("Ton score est de " + score);
+        while(!fin) {
+            choixChanson(loadCSV(chansonsCSV));
+            println();
+            String texte = init(loadCSV(chansonsCSV), loadCSV(paroleCSV));
+            print(loadCSV(presentateurCSV));
+            print(texte);
+            reponse();
+            println();
+            println("Ton score est de " + score);
+            print("Veux-tu continuer ?? A) Oui B) Non\n>>");
+            fini = readChar();
+            if (fini == 'b' || fini == 'B') {
+                fin = true;
+            }
+        }
+        println("Bien joué tu as atteint le score de " + score + " points !!");
     }
 }
