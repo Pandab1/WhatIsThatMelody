@@ -13,6 +13,7 @@ class WhatIsThatMelody extends Program {
     public Chanson chanson = new Chanson();
     public Paroles paroles = new Paroles();
     public int score = 0;
+    public int place = 3;
     
     ////////////////////////////////        FONCTIONS          ////////////////////////////////
 
@@ -28,6 +29,7 @@ class WhatIsThatMelody extends Program {
                 for (int i = 0; i < length(content); i++) {
                     if (equals(content[i][0], nom)) {
                         score = Integer.parseInt(content[i][1]);
+                        place = i;
                     }
                 }
                 bon = true;
@@ -35,6 +37,11 @@ class WhatIsThatMelody extends Program {
                 print("Bienvenue parmis nous ! Quel est ton nom ?\n>> ");
                 nom = readString().toLowerCase();
                 bon = true;
+                for (int i = 0; i < length(content); i++) {
+                    if (equals(content[i][0], "null")) {
+                        place = i;
+                    }
+                }
             } else {
                 print("Choisissez un chiffre valide entre 1 ou 2 !\n>> ");
             }
@@ -169,8 +176,8 @@ class WhatIsThatMelody extends Program {
     }
 
     void save(String[][] content, String fileName) {
-        content[0][0] = nom;
-        content[0][1] = score + "";
+        content[place][0] = nom;
+        content[place][1] = score + "";
         saveCSV(content, fileName);
     }
 
