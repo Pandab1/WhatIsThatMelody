@@ -32,6 +32,7 @@ class WhatIsThatMelody extends Program {
                     if (equals(content[i][0], nom)) {
                         score = Integer.parseInt(content[i][1]);
                         place = i;
+                        println("Ton score était de " + score);
                     }
                 }
                 bon = true;
