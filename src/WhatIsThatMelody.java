@@ -5,7 +5,7 @@ class WhatIsThatMelody extends Program {
     ////////////////////////////        VARIABLES GLOBALES          ///////////////////////////
 
     public final String ANSI_GREEN = "\u001B[32m";
-    public final String ANSI_WHITE = "\u001B[37m";
+    public final String ANSI_BLUE = "\u001B[34m";
     public String nom = "";
     public String difficulte = "";
     public String type = "";
@@ -19,13 +19,13 @@ class WhatIsThatMelody extends Program {
     ////////////////////////////////        FONCTIONS          ////////////////////////////////
 
     void joueur(String[][] content) {
-        int choix;
+        char choix;
         int cpt = 0;
         boolean bon = false;
-        print("As-tu déjà joué ? (1 pour oui ou 2 pour non)\n>> ");
+        print(ANSI_BLUE + "As-tu déjà joué ? (1 pour oui ou 2 pour non)\n>> ");
         while (!bon) {
-            choix = readInt();
-            if (choix == 1) {
+            choix = readChar();
+            if (choix == '1') {
                 print("Heureux de te revoir ! Quel était ton nom ?\n>> ");
                 nom = readString().toLowerCase();
                 for (int i = 0; i < length(content); i++) {
@@ -36,7 +36,7 @@ class WhatIsThatMelody extends Program {
                     }
                 }
                 bon = true;
-            } else if (choix == 2) {
+            } else if (choix == '2') {
                 print("Bienvenue parmis nous ! Quel est ton nom ?\n>> ");
                 nom = readString().toLowerCase();
                 bon = true;
@@ -109,22 +109,28 @@ class WhatIsThatMelody extends Program {
         println("Quelle chanson voulez-vous ?");
         afficher(titres);
         print(">> ");
-        int choix = readInt() - 1;
+        int trucla = 0;
+        int longtitre = length(titres);
+        char choix = readChar();
+        trucla = choix - '1';
+        println(trucla);
         while (!bon) {
-            if (choix >= 0 && choix < length(titres)) {
+            if (trucla >= 0 && trucla < longtitre) {
                 bon = true;
             } else {
                 print("Veuillez prendre un chiffre disponible !\n>> ");
-                choix = readInt() - 1;
+                choix = readChar();
+                trucla = (int) choix - '1';
+                println(trucla);
             }
         }
-        ligneTitre = choix;
+        ligneTitre = trucla;
         chanson.titre = getCell(csv, ligneTitre, 0);
         println("Vous avez choisi '" + chanson.titre + "'");
     }
 
     String init(CSVFile chansonCSV, CSVFile paroleCSV) {
-        String retour = "La chanson " + ANSI_GREEN + chanson.titre + ANSI_WHITE + " est une chanson écrite par ";
+        String retour = "La chanson " + ANSI_GREEN + chanson.titre + ANSI_BLUE + " est une chanson écrite par ";
         chanson.auteur = getCell(chansonCSV, ligneTitre, 1);
         chanson.dateSortie = getCell(chansonCSV, ligneTitre, 2);
         retour += ANSI_GREEN + chanson.auteur + ANSI_WHITE + " en/au " + chanson.dateSortie + "\n\n";
@@ -148,11 +154,12 @@ class WhatIsThatMelody extends Program {
 
     void reponse() {
         print(">> ");
-        int choix = readInt();
-        if (choix > 3 || choix < 1) {
+        char choix = readChar();
+        int reponse = (int) choix - '0';
+        if (reponse > 3 || reponse < 1) {
             println("Choisi une réponse valide !");
             reponse();
-        } else if ((choix <= 3 || choix >= 1) && !equals(paroles.propositions[choix - 1], paroles.reponse)) {
+        } else if ((reponse <= 3 || choix >= 1) && !equals(paroles.propositions[reponse - 1], paroles.reponse)) {
             println("Mauvaise réponse !");
         } else {
             println("Bonne réponse ! Tu gagnes " + nbPoint + " points !"); //modif nb point en fonction de la difficulté
