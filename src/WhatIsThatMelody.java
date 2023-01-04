@@ -154,7 +154,7 @@ class WhatIsThatMelody extends Program {
         } else if ((choix <= 3 || choix >= 1) && !equals(paroles.propositions[choix - 1], paroles.reponse)) {
             println("Mauvaise réponse !");
         } else {
-            println("Bonne réponse ! Tu gagnes " + nbPoint + "points !"); //modif nb point en fonction de la difficulté
+            println("Bonne réponse ! Tu gagnes " + nbPoint + " points !"); //modif nb point en fonction de la difficulté
             score += nbPoint;
         }
     }
