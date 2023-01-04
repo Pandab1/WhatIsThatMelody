@@ -106,7 +106,7 @@ class WhatIsThatMelody extends Program {
         for (int line = 0; line<rowCount(csv); line++) {
             titres[line] = getCell(csv, line, 0);
         }
-        println("Quelles comptines voulez-vous ?");
+        println("Quelle chanson voulez-vous ?");
         afficher(titres);
         print(">> ");
         int choix = readInt() - 1;
@@ -124,7 +124,7 @@ class WhatIsThatMelody extends Program {
     }
 
     String init(CSVFile chansonCSV, CSVFile paroleCSV) {
-        String retour = "La comptine " + ANSI_GREEN + chanson.titre + ANSI_WHITE + " est une comptine écrite par ";
+        String retour = "La chanson " + ANSI_GREEN + chanson.titre + ANSI_WHITE + " est une chanson écrite par ";
         chanson.auteur = getCell(chansonCSV, ligneTitre, 1);
         chanson.dateSortie = getCell(chansonCSV, ligneTitre, 2);
         retour += ANSI_GREEN + chanson.auteur + ANSI_WHITE + " en/au " + chanson.dateSortie + "\n\n";
