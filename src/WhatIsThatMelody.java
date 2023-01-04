@@ -20,6 +20,7 @@ class WhatIsThatMelody extends Program {
 
     void joueur(String[][] content) {
         int choix;
+        int cpt = 0;
         boolean bon = false;
         print("As-tu déjà joué ? (1 pour oui ou 2 pour non)\n>> ");
         while (!bon) {
@@ -38,11 +39,10 @@ class WhatIsThatMelody extends Program {
                 print("Bienvenue parmis nous ! Quel est ton nom ?\n>> ");
                 nom = readString().toLowerCase();
                 bon = true;
-                for (int i = 0; i < length(content); i++) {
-                    if (equals(content[i][0], "null")) {
-                        place = i;
-                    }
-                }
+                while(!equals(content[cpt][0], "null") && cpt < length(content)) {
+                    place = cpt;
+                    cpt++;
+                } 
             } else {
                 print("Choisissez un chiffre valide entre 1 ou 2 !\n>> ");
             }
@@ -154,7 +154,7 @@ class WhatIsThatMelody extends Program {
         } else if ((choix <= 3 || choix >= 1) && !equals(paroles.propositions[choix - 1], paroles.reponse)) {
             println("Mauvaise réponse !");
         } else {
-            println("Bonne réponse ! Tu gagnes 1 points !"); //modif nb point en fonction de la difficulté
+            println("Bonne réponse ! Tu gagnes " + nbPoint + "points !"); //modif nb point en fonction de la difficulté
             score += nbPoint;
         }
     }
