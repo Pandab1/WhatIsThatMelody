@@ -13,7 +13,8 @@ class WhatIsThatMelody extends Program {
     public Chanson chanson = new Chanson();
     public Paroles paroles = new Paroles();
     public int score = 0;
-    public int place = 3;
+    public int place = 0;
+    public int nbPoint = 1;
     
     ////////////////////////////////        FONCTIONS          ////////////////////////////////
 
@@ -59,9 +60,11 @@ class WhatIsThatMelody extends Program {
                 bon = true;
             } else if (choix == 'B' || choix == 'b') {
                 difficulte = "moyen";
+                nbPoint = 2;
                 bon = true;
             } else if (choix == 'C' || choix == 'c') {
                 difficulte = "difficile";
+                nbPoint = 3;
                 bon = true;
             } else {
                 print("Choisissez une lettre valide entre A, B ou C !\n>> ");
@@ -152,7 +155,7 @@ class WhatIsThatMelody extends Program {
             println("Mauvaise réponse !");
         } else {
             println("Bonne réponse ! Tu gagnes 1 points !"); //modif nb point en fonction de la difficulté
-            score += 1; //pour l'instant +1 mais tkt on arrive
+            score += nbPoint;
         }
     }
 
