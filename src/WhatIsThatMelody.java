@@ -133,7 +133,7 @@ class WhatIsThatMelody extends Program {
         String retour = "La chanson " + ANSI_GREEN + chanson.titre + ANSI_BLUE + " est une chanson écrite par ";
         chanson.auteur = getCell(chansonCSV, ligneTitre, 1);
         chanson.dateSortie = getCell(chansonCSV, ligneTitre, 2);
-        retour += ANSI_GREEN + chanson.auteur + ANSI_WHITE + " en/au " + chanson.dateSortie + "\n\n";
+        retour += ANSI_GREEN + chanson.auteur + ANSI_BLUE + " en/au " + chanson.dateSortie + "\n\n";
         paroles.preced = "";
         paroles.reponse = "";
         paroles.type = "";
