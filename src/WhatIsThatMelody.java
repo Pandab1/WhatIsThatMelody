@@ -18,6 +18,18 @@ class WhatIsThatMelody extends Program {
     
     ////////////////////////////////        FONCTIONS          ////////////////////////////////
 
+    void wait(int ms) {
+
+        try {
+
+            Thread.sleep(ms);
+
+        } catch (InterruptedException ex) {
+
+            Thread.currentThread().interrupt();
+        }
+    }
+
     void joueur(String[][] content) {
         char choix;
         int cpt = 0;
@@ -101,32 +113,48 @@ class WhatIsThatMelody extends Program {
     }
 
     void choixChanson(CSVFile csv) {
-        boolean bon = false;
+        // boolean bon = false;
+        // println("Quelle chanson voulez-vous ?");
+        // afficher(titres);
+        // print(">> ");
+        // int choix_int = 0;
+        // char choix = readChar();
+        // choix_int = choix - '1';
+        // println(choix_int);
+        // while (!bon) {
+        //     if (choix_int >= 0 && choix_int < longtitre) {
+        //         bon = true;
+        //     } else {
+        //         print("Veuillez prendre un chiffre disponible !\n>> ");
+        //         choix = readChar();
+        //         choix_int = (int) choix - '1';
+        //         println(choix_int);
+        //     }
+        // }
+        // ligneTitre = choix_int;
+        // chanson.titre = getCell(csv, ligneTitre, 0);
+        // println("Vous avez choisi '" + chanson.titre + "'");
+
+        boolean ok = false;
         String[] titres = new String[rowCount(csv)];
         for (int line = 0; line<rowCount(csv); line++) {
-            titres[line] = getCell(csv, line, 0);
-        }
-        println("Quelle chanson voulez-vous ?");
-        afficher(titres);
-        print(">> ");
-        int trucla = 0;
-        int longtitre = length(titres);
-        char choix = readChar();
-        trucla = choix - '1';
-        println(trucla);
-        while (!bon) {
-            if (trucla >= 0 && trucla < longtitre) {
-                bon = true;
-            } else {
-                print("Veuillez prendre un chiffre disponible !\n>> ");
-                choix = readChar();
-                trucla = (int) choix - '1';
-                println(trucla);
+            if (getCell(csv, line, 3).equals(type)) {
+                titres[line] = getCell(csv, line, 0);
             }
         }
-        ligneTitre = trucla;
-        chanson.titre = getCell(csv, ligneTitre, 0);
-        println("Vous avez choisi '" + chanson.titre + "'");
+        int longtitre = length(titres);
+        int choix = (int) (random() * longtitre);
+        ligneTitre = choix;
+        chanson.titre = getCell(csv, choix, 0);
+
+        print("Patientez");
+        wait(1000);
+        print(".");
+        wait(1000);
+        print(".");
+        wait(1000);
+        println(".");
+        wait(1000);
     }
 
     String init(CSVFile chansonCSV, CSVFile paroleCSV) {
@@ -215,10 +243,11 @@ class WhatIsThatMelody extends Program {
             println();
             println("Vous avez choisi la difficulté " + difficulte + " avec le mode " + type);
             println();
-            choixChanson(loadCSV(chansonsCSV));
+            choixChanson(loadCSV(paroleCSV));
             println();
             texte = init(loadCSV(chansonsCSV), loadCSV(paroleCSV));
             print(loadCSV(presentateurCSV));
+            println("La chanson choisi est '" + chanson.titre + "'");
             print(texte);
             reponse();
             println();
