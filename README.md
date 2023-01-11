@@ -1,6 +1,6 @@
 # What Is That Melody
 
-Développé par <Paul Degraeve> <Julien Desrumaux>
+Développé par Paul Degraeve Julien Desrumaux
 
 Contacts : <paul.degraeve.etu@univ-lille.fr> , <julien.desrumaux.etu@univ-lille.fr>
 
