@@ -8,7 +8,7 @@ class WhatIsThatMelody extends Program {
     public final String ANSI_BLUE = "\u001B[34m";
     public String nom = "";
     public String difficulte = "";
-    public String type = "";
+    // public String type = "";
     public int ligneTitre = 0;
     public Chanson chanson = new Chanson();
     public Paroles paroles = new Paroles();
@@ -19,13 +19,9 @@ class WhatIsThatMelody extends Program {
     ////////////////////////////////        FONCTIONS          ////////////////////////////////
 
     void wait(int ms) {
-
         try {
-
             Thread.sleep(ms);
-
         } catch (InterruptedException ex) {
-
             Thread.currentThread().interrupt();
         }
     }
@@ -62,48 +58,59 @@ class WhatIsThatMelody extends Program {
         }
     }
 
-    void choixDifficulte() {
+    String choixDifficulte() {
         boolean bon = false;
         char choix;
-        print("Quelle difficulté voulez-vous ? A) Facile, B) Moyen, C) Difficile\n>> ");
+        print("Quelle difficulté voulez-vous ? 1) Facile, 2) Moyen, 3) Difficile\n>> ");
         while (!bon) {
             choix = readChar();
-            if (choix == 'A' || choix == 'a'){
-                difficulte = "facile";
-                bon = true;
-            } else if (choix == 'B' || choix == 'b') {
-                difficulte = "moyen";
+            if (choix == '1'){
+                // difficulte = "facile";
+                // bon = true;
+                println("Vous avez choisi la difficulte facile.");
+                return "facile";
+            } else if (choix == '2') {
+                // difficulte = "moyen";
+                // bon = true;
                 nbPoint = 2;
-                bon = true;
-            } else if (choix == 'C' || choix == 'c') {
-                difficulte = "difficile";
+                println("Vous avez choisi la difficulte moyen.");
+                return "moyen";
+            } else if (choix == '3') {
+                // difficulte = "difficile";
+                // bon = true;
                 nbPoint = 3;
-                bon = true;
+                println("Vous avez choisi la difficulte difficile.");
+                return "difficile";
             } else {
-                print("Choisissez une lettre valide entre A, B ou C !\n>> ");
+                print("Choisissez une réponse valide entre 1, 2 ou 3 !\n>> ");
             }
         }
+        return "Erreur, veuillez relancer le jeu.";
     }
 
-    void choixMode() {
+    String choixMode() {
         boolean bon = false;
         char choix;
-        print("Quel mode voulez-vous ? A) Conjugaison, B) Orthographe, C) Mémoire\n>> ");
+        print("Quel mode voulez-vous ? 1) Conjugaison, 2) Orthographe, 3) Mémoire\n>> ");
         while (!bon) {
             choix = readChar();
-            if (choix == 'A' || choix == 'a'){
-                type = "CONJUGAISON";
-                bon = true;
-            } else if (choix == 'B' || choix == 'b') {
-                type = "ORTHOGRAPHE";
-                bon = true;
-            } else if (choix == 'C' || choix == 'c') {
-                type = "MEMOIRE";
-                bon = true;
+            if (choix == '1'){
+                // type = "CONJUGAISON";
+                // bon = true;
+                return "CONJUGAISON";
+            } else if (choix == '2') {
+                // type = "ORTHOGRAPHE";
+                // bon = true;
+                return "ORTHOGRAPHE";
+            } else if (choix == '3') {
+                // type = "MEMOIRE";
+                // bon = true;
+                return "MEMOIRE";
             } else {
-                print("Choisissez une lettre valide entre A, B ou C !\n>> ");
+                print("Choisissez une réponse valide entre 1, 2 ou 3 !\n>> ");
             }
         }
+        return "Erreur, veuillez relancer le jeu.";
     }
 
     void afficher(String[] titres) {
@@ -112,7 +119,7 @@ class WhatIsThatMelody extends Program {
         }
     }
 
-    void choixChanson(CSVFile csv) {
+    void choixChanson(CSVFile csv, String mode) {
         // boolean bon = false;
         // println("Quelle chanson voulez-vous ?");
         // afficher(titres);
@@ -138,7 +145,7 @@ class WhatIsThatMelody extends Program {
         boolean ok = false;
         String[] titres = new String[rowCount(csv)];
         for (int line = 0; line<rowCount(csv); line++) {
-            if (getCell(csv, line, 3).equals(type)) {
+            if (getCell(csv, line, 3).equals(mode)) {
                 titres[line] = getCell(csv, line, 0);
             }
         }
@@ -157,7 +164,7 @@ class WhatIsThatMelody extends Program {
         wait(1000);
     }
 
-    String init(CSVFile chansonCSV, CSVFile paroleCSV) {
+    String init(CSVFile chansonCSV, CSVFile paroleCSV, String mode) {
         String retour = "La chanson " + ANSI_GREEN + chanson.titre + ANSI_BLUE + " est une chanson écrite par ";
         chanson.auteur = getCell(chansonCSV, ligneTitre, 1);
         chanson.dateSortie = getCell(chansonCSV, ligneTitre, 2);
@@ -167,7 +174,7 @@ class WhatIsThatMelody extends Program {
         paroles.type = "";
         paroles.propositions = new String[3];
         for (int line = 0; line<rowCount(paroleCSV); line++) {
-            if (equals(getCell(paroleCSV, line, 0), chanson.titre) && equals(getCell(paroleCSV, line, 3), type)) {
+            if (equals(getCell(paroleCSV, line, 0), chanson.titre) && equals(getCell(paroleCSV, line, 3), mode)) {
                 paroles.preced = getCell(paroleCSV, line, 1);
                 paroles.reponse = getCell(paroleCSV, line, 2);
                 paroles.type = getCell(paroleCSV, line, 3);
@@ -225,8 +232,8 @@ class WhatIsThatMelody extends Program {
     void algorithm() {
 
         boolean menu = true;
-        char fini;
         char choix;
+        String mode = "";
         String save = "../ressources/save_file.csv";
         String chansonsCSV = "../ressources/chanson.csv";
         String paroleCSV = "";
@@ -234,18 +241,38 @@ class WhatIsThatMelody extends Program {
         String texte = "";
         String[][] sauvegarde = load(loadCSV(save));
 
+        clearScreen();
+        print(loadCSV(presentateurCSV));
+        println("BONJOUR !!\n\nBienvenue dans ce jeu très sympathique. Les règles sont très simples :\nJe vais vous poser des questions sur des comptines et des chansons et vous devrez y répondre sans vous tromper.\nVous avez 3 essais.\nPour répondre à une question, il vous suffit de taper le chiffre correspondant à la réponse puis d'appuyer sur la touche entrer.\nPour quitter le jeu, if vous suffit d'appuyer sur ctrl + c en même temps (ou cmd + c sur Mac) (ATTENTION, à n'utilisez quand cas d'urgence. Exemple, le jeu vous donne une erreur).\n\nVous pouvez aussi choisir le mode entraînement dans lequel vous pouvez choisir la chansons que vous voulez et vous avez autant d'essais que vous voulez.\n\nBon courage !");
+        println();
+        // wait(10000);
+        joueur(sauvegarde);
+        println("######################################");
+        println("# Que choisissez-vous ?              #");
+
         while(menu) {
-            clearScreen();
-            print(loadCSV(presentateurCSV));
-            println("BONJOUR !!\n\nBienvenue dans ce jeu très sympathique. Les règles sont très simples :\nJe vais vous poser des questions sur des comptines et des chansons et vous devrez y répondre sans vous tromper.\nVous avez 3 essais.\nPour répondre à une question, il vous suffit de taper le chiffre correspondant à la réponse puis d'appuyer sur la touche entrer.\nPour quitter le jeu, if vous suffit d'appuyer sur ctrl + c en même temps (ou cmd + c sur Mac).\n\nVous pouvez aussi choisir le mode entraînement dans lequel vous pouvez choisir la chansons que vous voulez et vous avez autant d'essais que vous voulez.\n\nBon courage !");
-            println();
-            wait(10000);
-            println("Que choisissez-vous ?");
-            println();
-            print("1) Mode classique\n2) Entraînement\n3) Quitter\n>> ");
+            println("#                                    #");
+            print("# 1) Mode classique                  #\n# 2) Entraînement                    #\n# 3) Quitter                         #\n# >> ");
             choix = readChar();
-            menu = false;
-            // terminer le programme principale
+            if (choix == '1') {
+                
+                paroleCSV = "../ressources/parole_" + choixDifficulte() + ".csv";
+                mode = choixMode();
+                println("Vous avez choisi le mode " + mode + ".");
+                println("Vous pouvez revenir au menu à tout moment en appuyant sur 'm'.");
+
+            } else if (choix == '2') {
+                println("ok 2");
+            } else if (choix == '3') {
+                menu = false;
+                clearScreen();
+                print(loadCSV(presentateurCSV));
+                println("A bientôt !");
+                println();
+            } else {
+                println("Choisissez une réponse valide entre 1, 2 ou 3 !");
+            }
+            
         }
     }
 }
