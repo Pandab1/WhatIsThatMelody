@@ -7,8 +7,6 @@ class WhatIsThatMelody extends Program {
     public final String ANSI_GREEN = "\u001B[32m";
     public final String ANSI_BLUE = "\u001B[34m";
     public String nom = "";
-    // public String difficulte = "";
-    // public String type = "";
     public int ligneTitre = 0;
     public Paroles paroles = new Paroles();
     public int score = 0;
@@ -65,19 +63,13 @@ class WhatIsThatMelody extends Program {
             choix = readChar();
             println("#");
             if (choix == '1'){
-                // difficulte = "facile";
-                // bon = true;
                 println("# Vous avez choisi la difficulte facile.");
                 return "facile";
             } else if (choix == '2') {
-                // difficulte = "moyen";
-                // bon = true;
                 nbPoint = 2;
                 println("# Vous avez choisi la difficulte moyen.");
                 return "moyen";
             } else if (choix == '3') {
-                // difficulte = "difficile";
-                // bon = true;
                 nbPoint = 3;
                 println("# Vous avez choisi la difficulte difficile.");
                 return "difficile";
@@ -95,16 +87,10 @@ class WhatIsThatMelody extends Program {
         while (!bon) {
             choix = readChar();
             if (choix == '1'){
-                // type = "CONJUGAISON";
-                // bon = true;
                 return "CONJUGAISON";
-            } else if (choix == '2') {
-                // type = "ORTHOGRAPHE";
-                // bon = true;
+            } else if (choix == '2') {;
                 return "ORTHOGRAPHE";
             } else if (choix == '3') {
-                // type = "MEMOIRE";
-                // bon = true;
                 return "MEMOIRE";
             } else {
                 print("Choisissez une réponse valide entre 1, 2 ou 3 !\n# >> ");
@@ -258,7 +244,7 @@ class WhatIsThatMelody extends Program {
         print(loadCSV(presentateurCSV));
         println(ANSI_BLUE + "BONJOUR !!\n\nBienvenue dans ce jeu très sympathique. Les règles sont très simples :\nJe vais vous poser des questions sur des comptines et des chansons et vous devrez y répondre sans vous tromper.\nVous avez 3 essais.\nPour répondre à une question, il vous suffit de taper le chiffre correspondant à la réponse puis d'appuyer sur la touche entrer.\nPour quitter le jeu, if vous suffit d'appuyer sur ctrl + c en même temps (ou cmd + c sur Mac) (ATTENTION, à n'utilisez quand cas d'urgence. Exemple, le jeu vous donne une erreur).\n\nVous pouvez aussi choisir le mode entraînement dans lequel vous pouvez choisir la chansons que vous voulez et vous avez autant d'essais que vous voulez.\n\nBon courage !");
         println();
-        // wait(10000);
+        wait(10000);
         joueur(sauvegarde);
 
         while(menu) {
