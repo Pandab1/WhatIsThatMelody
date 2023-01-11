@@ -1,6 +1,7 @@
 # What Is That Melody
 
-Développé par Paul Degraeve Julien Desrumaux
+Développé par <Paul Degraeve> <Julien Desrumaux>
+
 Contacts : <paul.degraeve.etu@univ-lille.fr> , <julien.desrumaux.etu@univ-lille.fr>
 
 ## Présentation de What Is That Melody
@@ -9,7 +10,7 @@ What Is That Melody est un jeu pour enfant s'inspirant de n'oubliez pas les paro
 
 Les enfants y apprennent la conjugaison, l'orthographe et peuvent même travailler leur mémoire.
 
-Les contrôles sont très simples, notre jeu est à la porté de tous le monde.
+Les contrôles sont très simples, notre jeu est à la porté de tout le monde.
 
 ## Mode d'emploi
 
