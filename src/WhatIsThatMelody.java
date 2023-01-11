@@ -224,42 +224,28 @@ class WhatIsThatMelody extends Program {
 
     void algorithm() {
 
-        boolean fin = false;
+        boolean menu = true;
         char fini;
+        char choix;
         String save = "../ressources/save_file.csv";
         String chansonsCSV = "../ressources/chanson.csv";
         String paroleCSV = "";
         String presentateurCSV = "../ressources/presentateur.csv";
         String texte = "";
-
         String[][] sauvegarde = load(loadCSV(save));
 
-        joueur(sauvegarde);
-        choixDifficulte();
-
-        while(!fin) {
-            choixMode();
-            paroleCSV = "../ressources/parole_" + difficulte + ".csv";
-            println();
-            println("Vous avez choisi la difficulté " + difficulte + " avec le mode " + type);
-            println();
-            choixChanson(loadCSV(paroleCSV));
-            println();
-            texte = init(loadCSV(chansonsCSV), loadCSV(paroleCSV));
+        while(menu) {
+            clearScreen();
             print(loadCSV(presentateurCSV));
-            println("La chanson choisi est '" + chanson.titre + "'");
-            print(texte);
-            reponse();
+            println("BONJOUR !!\n\nBienvenue dans ce jeu très sympathique. Les règles sont très simples :\nJe vais vous poser des questions sur des comptines et des chansons et vous devrez y répondre sans vous tromper.\nVous avez 3 essais.\nPour répondre à une question, il vous suffit de taper le chiffre correspondant à la réponse puis d'appuyer sur la touche entrer.\nPour quitter le jeu, if vous suffit d'appuyer sur ctrl + c en même temps (ou cmd + c sur Mac).\n\nVous pouvez aussi choisir le mode entraînement dans lequel vous pouvez choisir la chansons que vous voulez et vous avez autant d'essais que vous voulez.\n\nBon courage !");
             println();
-            println("Ton score est de : " + score);
+            wait(10000);
+            println("Que choisissez-vous ?");
             println();
-            print("Veux-tu continuer ?? A) Oui B) Non\n>> ");
-            fini = readChar();
-            if (fini == 'b' || fini == 'B') {
-                fin = true;
-            }
+            print("1) Mode classique\n2) Entraînement\n3) Quitter\n>> ");
+            choix = readChar();
+            menu = false;
+            // terminer le programme principale
         }
-        save(sauvegarde, save);
-        println("Bien joué tu as atteint le score de " + score + " points !!");
     }
 }
