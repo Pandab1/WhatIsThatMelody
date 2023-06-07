@@ -16,7 +16,7 @@ Les contrôles sont très simples, notre jeu est à la porté de tout le monde.
 
 Pour lancer le jeu c'est très simple.
 
-Il suffit de taper les commande suivantes dans un terminal linux (de préférence en pleine écran) :
+Il suffit de taper les commande suivantes dans un terminal linux dans le dossier du jeu (de préférence en pleine écran) :
 
 ./compile.sh
 
